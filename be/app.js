@@ -32,19 +32,24 @@ const serverHandle = (req, res) => {
     const url = req.url
     req.path = url.split('?')[0]
     req.query = querystinrg.parse(url.split('?')[1])
+    console.log(req.method, req.path)
 
     getPostData(req).then(postData => {
         req.body = postData
-        const bolgResult = handleBlogRouter(req, res)
-        const userResult = handleUserRouter(req, res)
 
-        if(bolgResult) {
-            res.end(JSON.stringify(bolgResult))
+        const blogResult = handleBlogRouter(req, res)
+        if (blogResult) {
+            blogResult.then(blogData => {
+                res.end(JSON.stringify(blogData))
+            })
             return
         }
 
-        if(userResult) {
-            res.end(JSON.stringify(userResult))
+        const userResult = handleUserRouter(req, res)
+        if (userResult) {
+            userResult.then(userData => {
+                res.end(JSON.stringify(userData))
+            })
             return
         }
 

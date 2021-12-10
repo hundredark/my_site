@@ -9,12 +9,15 @@ const handleUserRouter = (req, res) => {
     // 用户登录
     if(method === 'POST' && path === '/api/user/login') {
         const {username, password} = req.body
-        const flag = checkLogin(username, password)
-        if(flag) {
-            return new SuccessModule('登录成功');
-        } else {
-            return new ErrorModule('登录失败');
-        }
+        const result = checkLogin(username, password)
+
+        return result.then(data => {
+            if(data.username) {
+                return new SuccessModule('登录成功');
+            } else {
+                return new ErrorModule('登录失败');
+            }
+        })
     }
 }
 
