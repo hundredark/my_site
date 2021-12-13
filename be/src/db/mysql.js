@@ -1,12 +1,7 @@
 const mysql = require('mysql')
+const {db_config} = require('../config/prd.js')
 
-if (process.env.NODE_ENV === 'dev') {
-    const { db_config } = require('../config/dev')
-} else if (process.env.NODE_ENV === 'production') {
-    const { db_config } = require('../config/prd')
-} else {
-    const db_config = null
-}
+console.log(db_config)
 
 const con = mysql.createConnection(db_config)
 con.connect()
