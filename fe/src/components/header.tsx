@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom'
-import {routes} from "../routes";
+
 export const Header = () => {
     return (
         <header className={'header-wrapper'}>
-            {
-                routes.map((route, index) => {
-                    return <Link key={index} className={'header-link'} to={route.path}>{route.text}</Link>
-                })
-            }
+            <Link className={'header-link'} to={'/'}>首页</Link>
+            <Link className={'header-link'} to={'/blogs'}>博客</Link>
+            <Link className={'header-link'} to={'/about'}>关于</Link>
         </header>
     )
 }

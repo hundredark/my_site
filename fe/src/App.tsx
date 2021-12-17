@@ -1,17 +1,19 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import {routes} from "./routes";
+import {Home} from "./screens/home";
+import {BlogDetail} from "./screens/blogDetail";
+import {Blogs} from "./screens/blogs";
+import {About} from "./screens/about";
 
 function App() {
   return (
     <Router>
       <Routes>
-          {
-              routes.map((route, index) => {
-                  return <Route key={index} path={route.path} element={route.component} />
-              })
-          }
+        <Route path={"/"} element={<Home />} />
+        <Route path={'/blogs'} element={<Blogs />} />
+        <Route path={'/blogs/:blogId'} element={<BlogDetail />} />
+        <Route path={'/about'} element={<About />} />
       </Routes>
     </Router>
   );

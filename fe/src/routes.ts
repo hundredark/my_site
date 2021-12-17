@@ -1,6 +1,6 @@
 import {Home} from "./screens/home";
 import {About} from "./screens/about";
-import {Blog} from "./screens/blog";
+import {Blogs} from "./screens/blogs";
 
 interface RouteConfig  {
     text: string
@@ -15,9 +15,9 @@ export const routes: RouteConfig[] = [
         component: Home(),
     },
     {
-        text: 'Blog',
-        path: '/blog',
-        component: Blog(),
+        text: 'Blogs',
+        path: '/blogs',
+        component: Blogs(),
     },
     {
         text: 'About',
