@@ -1,15 +1,17 @@
 import Ajax_api from "./api";
+import {baseUrl} from "../utils";
 
-class blogsApi extends Ajax_api {
+class blogApi extends Ajax_api {
     getList() {
         let path = '/api/blog/list'
-        return this.get(path)
+        return this.get(path).then(res => res.data)
     }
 
     getBlogDetail(id: number) {
         let path = `/api/blog/detail?id=${id}`
-        return this.get(path)
+        return this.get(path).then(res => res.data)
     }
 }
 
-export default blogsApi
+const api = new blogApi(baseUrl)
+export default api

@@ -17,14 +17,14 @@ class BaseModule {
 class SuccessModule extends BaseModule {
     constructor(data, message) {
         super(data, message)
-        this.errno = 0;
+        this.error = 0;
     }
 }
 
 class ErrorModule extends BaseModule {
     constructor(data, message) {
         super(data, message)
-        this.errno = -1;
+        this.error = -1;
     }
 }
 

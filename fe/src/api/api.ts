@@ -10,7 +10,9 @@ class Ajax_api {
     get(path: string) {
         let url: string = this.baseUrl + path
         console.log('get', url)
-        return axios.get(url).then(r => r.data)
+        return axios.get(url).then(r => {
+            return r.data
+        })
     }
 
     post(path: string, data: object) {

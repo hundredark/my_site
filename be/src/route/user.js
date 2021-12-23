@@ -1,5 +1,6 @@
 const {checkLogin} = require("../controller/user")
 const { SuccessModule, ErrorModule } = require("../module/resModule")
+const {set} = require('../db/redis')
 
 
 const handleUserRouter = (req, res) => {
@@ -13,6 +14,10 @@ const handleUserRouter = (req, res) => {
 
         return result.then(data => {
             if(data.username) {
+                req.session.username = data.username
+                req.session.id = data.id
+                set(req.sessionId, req.session)
+
                 return new SuccessModule('登录成功');
             } else {
                 return new ErrorModule('登录失败');

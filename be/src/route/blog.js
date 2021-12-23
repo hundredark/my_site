@@ -13,7 +13,6 @@ const handleBlogRouter = (req, res) => {
         const result = getList(tag, keyword)
 
         return result.then(listData => {
-            console.log(listData)
             return new SuccessModule(listData)
         })
     }

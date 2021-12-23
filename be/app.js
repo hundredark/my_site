@@ -1,6 +1,8 @@
 const querystinrg = require('querystring')
+const {set, get} = require("./src/db/redis");
 const handleUserRouter = require('./src/route/user')
 const handleBlogRouter = require('./src/route/blog')
+const {setCookie, parseCookie} = require('./src/validation/index')
 
 const getPostData = (req) => {
     const promise = new Promise((resolve, reject) => {
@@ -29,25 +31,54 @@ const getPostData = (req) => {
 
 const serverHandle = (req, res) => {
     res.setHeader('Content-type', 'application/json')
+
     const url = req.url
     req.path = url.split('?')[0]
     req.query = querystinrg.parse(url.split('?')[1])
     console.log(req.method, req.path)
 
-    getPostData(req).then(postData => {
-        req.body = postData
+    // 解析 cookie
+    let cookieStr = req.headers.cookie || ''
+    req.cookie = parseCookie(cookieStr)
 
+    let needSetCookie = false
+    let userId = res.cookie ? res.cookie.userid : ''
+    if (!userId) {
+        needSetCookie = true
+        userId = `${Date.now()}_${Math.random()}`
+        set(userId, {})
+    }
+
+    req.sessionId = userId
+    get(req.sessionId).then(sessionData => {
+        if (sessionData === null) {
+            set(req.sessionId, {})
+            req.session = {}
+        } else {
+            req.session = sessionData
+        }
+
+        return getPostData(req)
+    }).then(postData => {
+        req.body = postData
         const blogResult = handleBlogRouter(req, res)
+        const userResult = handleUserRouter(req, res)
+
         if (blogResult) {
             blogResult.then(blogData => {
+                if (needSetCookie) {
+                    setCookie(res, userId)
+                }
                 res.end(JSON.stringify(blogData))
             })
             return
         }
 
-        const userResult = handleUserRouter(req, res)
         if (userResult) {
             userResult.then(userData => {
+                if (needSetCookie) {
+                    setCookie(res, userId)
+                }
                 res.end(JSON.stringify(userData))
             })
             return
