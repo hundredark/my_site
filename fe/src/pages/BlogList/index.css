@@ -1,0 +1,16 @@
+.blogs-container {
+    width: 36%;
+    height: 95vh;
+    margin: 0 auto;
+    padding-top: 10rem;
+}
+
+.blogs-container .title {
+    font-size: 3.6rem;
+    font-weight: 700;
+}
+
+.blogs-container .blog-list-container {
+    margin-top: 2rem;
+}
+

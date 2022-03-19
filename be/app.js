@@ -1,94 +1,65 @@
-const querystinrg = require('querystring')
-const {set, get} = require("./src/db/redis");
-const handleUserRouter = require('./src/route/user')
-const handleBlogRouter = require('./src/route/blog')
-const {setCookie, parseCookie} = require('./src/validation/index')
+const Koa = require('koa')
+const app = new Koa()
+const views = require('koa-views')
+const json = require('koa-json')
+const onerror = require('koa-onerror')
+const bodyparser = require('koa-bodyparser')
+const logger = require('koa-logger')
+const session = require('koa-generic-session')
+const redisStore = require('koa-redis')
+const cors = require('koa2-cors');
 
-const getPostData = (req) => {
-    const promise = new Promise((resolve, reject) => {
-        if (req.method !== 'POST') {
-            resolve({})
-            return
-        }
-        if (req.headers['content-type'] !== 'application/json') {
-            resolve({})
-            return
-        }
-        let postData = ''
-        req.on('data', chunk => {
-            postData += chunk.toString()
-        })
-        req.on('end', () => {
-            if (!postData) {
-                resolve({})
-                return
-            }
-            resolve(JSON.parse(postData))
-        })
-    })
-    return promise
-}
+const indexRouter = require('./routes/index')
+const adminRouter = require('./routes/admin');
 
-const serverHandle = (req, res) => {
-    res.setHeader('Content-type', 'application/json')
+const { sessionInfo, cookieInfo, redisInfo, corsOrigin } = require('./config/config');
 
-    const url = req.url
-    req.path = url.split('?')[0]
-    req.query = querystinrg.parse(url.split('?')[1])
-    console.log(req.method, req.path)
+// error handler
+onerror(app)
 
-    // 解析 cookie
-    let cookieStr = req.headers.cookie || ''
-    req.cookie = parseCookie(cookieStr)
+app.use(cors({
+  origin: function (ctx) {
+    return corsOrigin;
+  },
+  credentials: true
+}));
 
-    let needSetCookie = false
-    let userId = res.cookie ? res.cookie.userid : ''
-    if (!userId) {
-        needSetCookie = true
-        userId = `${Date.now()}_${Math.random()}`
-        set(userId, {})
-    }
+// middlewares
+app.use(bodyparser({
+  enableTypes:['json', 'form', 'text']
+}))
+app.use(json())
+app.use(logger())
+app.use(require('koa-static')(__dirname + '/public'))
 
-    req.sessionId = userId
-    get(req.sessionId).then(sessionData => {
-        if (sessionData === null) {
-            set(req.sessionId, {})
-            req.session = {}
-        } else {
-            req.session = sessionData
-        }
+app.use(views(__dirname + '/views', {
+  extension: 'pug'
+}))
 
-        return getPostData(req)
-    }).then(postData => {
-        req.body = postData
-        const blogResult = handleBlogRouter(req, res)
-        const userResult = handleUserRouter(req, res)
+app.keys = sessionInfo.keys;
 
-        if (blogResult) {
-            blogResult.then(blogData => {
-                if (needSetCookie) {
-                    setCookie(res, userId)
-                }
-                res.end(JSON.stringify(blogData))
-            })
-            return
-        }
+app.use(session({
+  key: sessionInfo.name, // cookie name
+  prefix: sessionInfo.prefix,  //redis key前缀
+  cookie: cookieInfo,
+  store: redisStore(redisInfo)
+}));
 
-        if (userResult) {
-            userResult.then(userData => {
-                if (needSetCookie) {
-                    setCookie(res, userId)
-                }
-                res.end(JSON.stringify(userData))
-            })
-            return
-        }
+// logger
+app.use(async (ctx, next) => {
+  const start = new Date()
+  await next()
+  const ms = new Date() - start
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+})
 
-        res.writeHead(404, {"Content-type": "text-plain"});
-        res.write("404 not found/n");
-        res.end();
-    })
+// routes
+app.use(indexRouter.routes(), indexRouter.allowedMethods())
+app.use(adminRouter.routes(), adminRouter.allowedMethods())
 
-}
+// error-handling
+app.on('error', (err, ctx) => {
+  console.error('server error', err, ctx)
+});
 
-module.exports = serverHandle
+module.exports = app

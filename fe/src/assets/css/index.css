@@ -1,0 +1,15 @@
+@import '../../../node_modules/antd/dist/antd.css';
+
+html {
+    background-color: #f0ece3;
+}
+
+#root {
+    font-family: lucida grande,lucida sans unicode,lucida sans,Tahoma, sans-serif;
+    width: 100%;
+    /*height: 100%;*/
+    color: #494f5c;
+    background-color: #f0ece3;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

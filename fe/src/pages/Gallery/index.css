@@ -1,0 +1,43 @@
+.gallery-container {
+    width: 70%;
+    height: 94vh;
+    margin: 1rem auto;
+    padding-top: 10rem;
+    background-color: #f0ece3;
+}
+
+.gallery-container .waterfall {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.gallery-container .wf-item{
+    position: absolute;
+    /*background-color: #ededed;*/
+    box-shadow: 1px 2px 3px #ccc;
+    overflow: hidden;
+    visibility: hidden;
+    transition: box-shadow .3s, visibility .1s ease;
+}
+
+.gallery-container .wf-item img{
+    display: block;
+    width: 100%;
+}
+
+.gallery-container .wf-item .title-box{
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+}
+
+.gallery-container .btn-container {
+    text-align: center;
+}
+
+.gallery-container .btn {
+    border: none;
+    background-color: transparent;
+    padding-bottom: 2.5rem;
+}
