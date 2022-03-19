@@ -21,4 +21,5 @@
 .blog-item-container .blog-time {
     display: inline-block;
     width: 25%;
+    text-align: center;
 }

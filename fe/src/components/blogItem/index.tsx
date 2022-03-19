@@ -24,7 +24,7 @@ export const BlogItem = ({ blog }: { blog: IBlog}) => {
       </div>
 
       <div className={'blog-time'}>
-        <span className={"blog-time"}>{ formatTime(createTime) }</span>
+        <span>{ formatTime(createTime) }</span>
       </div>
 
     </div>
