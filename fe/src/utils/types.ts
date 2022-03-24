@@ -22,8 +22,9 @@ export interface IAxiosOptions {
     data?: object,
     withCredentials?: boolean,
     headers?: object,
-    success: (data: IResult) => void,
+    success: (data: IResult | ISongResult) => void,
     error: (err: string) => void,
+    crossOrigin?: boolean
 }
 
 export interface IUserInfo {
@@ -43,3 +44,32 @@ export interface IResult {
 }
 
 export type timeoutType = NodeJS.Timeout | null
+
+export interface IArtist {
+    id: number,
+    name: string
+}
+
+export interface ISongAlbum {
+    picUrl: string
+}
+
+export interface ISongDetail {
+    name: string,
+    id: number,
+    ar: IArtist[],
+    dt: number,
+    single: 0 | 1,
+    al: ISongAlbum,
+    curTime?: number
+}
+
+export interface ISongResult {
+    code: number,
+    privileges: {},
+    songs: ISongDetail[]
+}
+
+export type playerStatusType = 'loading' | 'canplay' | 'pause' | 'playing'
+
+export type repeatModeType = 0 | 1 | 2

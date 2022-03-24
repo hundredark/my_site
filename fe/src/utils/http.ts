@@ -5,10 +5,12 @@ import {IAxiosOptions} from "./types";
 
 export default class HTTP {
   axiosPost (options: IAxiosOptions) {
+    const flag = options.crossOrigin ?? true
+
     axios({
       url: options.url,
       method: 'post',
-      withCredentials: true,
+      withCredentials: flag,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -21,10 +23,12 @@ export default class HTTP {
   }
 
   axiosGet (options: IAxiosOptions) {
+    const flag = options.crossOrigin ?? true
+
     axios({
       url: options.url,
       method: 'get',
-      withCredentials: true
+      withCredentials: flag
     }).then((res) => {
       options.success(res.data);
     }).catch((err) => {

@@ -29,11 +29,15 @@
 .blog-page-container .blog-content {
     width: 100%;
     margin-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 10rem;
 }
 
 .blog-content h2 {
     font-size: 3rem;
+}
+
+.blog-content h3 {
+    font-size: 2.5rem;
 }
 
 .blog-content ul {
@@ -46,7 +50,7 @@
     list-style: disc;
 }
 
-.blog-content code {
+.blog-content li code {
     padding: 2px 4px;
     font-size: 90%;
     color: #c7254e;

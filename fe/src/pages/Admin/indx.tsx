@@ -12,7 +12,7 @@ export const Admin = () => {
     const navigator = useNavigate()
 
     const loginCheck = async () => {
-        const result: IResult = await loginService.loginCheck()
+        const result: IResult = await loginService.loginCheck() as IResult
         const errorCode = result.error_code
 
         if (errorCode === 10006) {

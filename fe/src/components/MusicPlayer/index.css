@@ -1,0 +1,67 @@
+.audio-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctrl-panel {
+    width: 13%;
+    height: 100%;
+}
+
+.player-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-btn {
+    font-size: 3.5rem;
+}
+
+.small-btn {
+    font-size: 2rem;
+}
+
+.audio-container .album-cover-container {
+    display: flex;
+    justify-content: center;
+    width: 5%;
+    height: 100%;
+    margin: 0 1rem;
+}
+
+.album-cover-container .album-cover {
+    height: 90%;
+    margin: 5% 0;
+    border: 1px solid #494f5c;
+}
+
+.audio-container .process {
+    width: 50%;
+    height: 100%;
+    padding-top: 0.5rem;
+}
+
+.process .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+}
+
+.column span {
+    line-height: 100%;
+}

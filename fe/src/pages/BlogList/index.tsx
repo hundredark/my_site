@@ -1,8 +1,8 @@
 import {useState} from "react";
 
-import {BlogItem} from "../../components/blogItem";
+import {BlogItem} from "../../components/BlogItem";
 import {useMount} from "../../utils/hooks";
-import {IBlog, IBlogList} from "../../utils/types";
+import {IBlog, IBlogList, IResult} from "../../utils/types";
 
 import './index.css'
 import BlogService from "../../services/Blog";

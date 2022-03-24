@@ -18,3 +18,11 @@ function formatNumber(n: number) {
     let str = n.toString()
     return str[1] ? n : '0' + n
 }
+
+export const stdTime = (t: number) => {
+    let totalSeconds = Math.floor(t / 1000)
+    let s = totalSeconds % 60
+    let m = (totalSeconds - s) / 60
+
+    return `${m >= 10 ? m : '0' + m}:${s >= 10 ? s : '0' + s}`
+}

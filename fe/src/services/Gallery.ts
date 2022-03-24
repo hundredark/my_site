@@ -10,7 +10,7 @@ export default class GalleryService extends HTTP {
       this.axiosGet({
         url: Gallery.GET_IMG_DATA + `?page=${page}&pageSize=${batchLength}`,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');

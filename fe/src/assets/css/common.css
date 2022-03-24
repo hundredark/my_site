@@ -32,9 +32,9 @@ h6 {
   color: #494f5c;
 }
 
-img {
-  width: 100%;
-}
+/*img {*/
+/*  width: 100%;*/
+/*}*/
 
 input, textarea, button {
   outline: none;

@@ -1,9 +1,12 @@
 .gallery-container {
     width: 70%;
-    height: 94vh;
-    margin: 1rem auto;
-    padding-top: 10rem;
+    padding: 10rem 0;
+    margin: 0 auto;
     background-color: #f0ece3;
+}
+
+.gallery-container img {
+    width: 100%;
 }
 
 .gallery-container .waterfall {
@@ -34,6 +37,7 @@
 
 .gallery-container .btn-container {
     text-align: center;
+    margin-bottom: 10rem;
 }
 
 .gallery-container .btn {

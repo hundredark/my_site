@@ -45,7 +45,7 @@ export const Gallery = () => {
 
     setGallery([...gallery, ...rows])
     if (count !== totalSize) {
-      setPageSize(totalSize)
+      setPageSize(totalSize / batchLength - 1)
     }
   }
 
@@ -131,6 +131,8 @@ export const Gallery = () => {
   }
 
   const loadNextBatch = () => {
+    console.log(pageNum, pageSize)
+
     if (pageNum < pageSize && !t) {
       setPageNum(pageNum + 1)
 
@@ -175,7 +177,6 @@ export const Gallery = () => {
               <button
                 className={"btn hover-item"}
                 onClick={ loadNextBatch }
-
               >---加载更多---</button>
             </div>
       }

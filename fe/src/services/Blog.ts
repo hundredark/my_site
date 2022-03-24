@@ -1,6 +1,6 @@
 import HTTP from 'utils/http';
 import { API } from '../config/config';
-import {IResult} from "../utils/types";
+import {IResult, ISongDetail} from "../utils/types";
 
 const BLOG = API.BLOG;
 
@@ -10,7 +10,7 @@ export default class BlogService extends HTTP {
       this.axiosGet({
         url: BLOG.GET_BLOG_DATA,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');
@@ -24,7 +24,7 @@ export default class BlogService extends HTTP {
       this.axiosGet({
         url: BLOG.GET_BLOG_INFO + `?id=${ id }`,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');

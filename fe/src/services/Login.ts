@@ -1,6 +1,6 @@
 import HTTP from 'utils/http';
 import { API } from '../config/config';
-import {IResult, IUserInfo} from "../utils/types";
+import {IResult, ISongDetail, IUserInfo} from "../utils/types";
 
 const LOGIN = API.LOGIN;
 
@@ -11,7 +11,7 @@ export default class LoginService extends HTTP {
         url: LOGIN.LOGIN_ACTION,
         data: userInfo,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');
@@ -25,7 +25,7 @@ export default class LoginService extends HTTP {
       this.axiosGet({
         url: LOGIN.LOGIN_CHECK,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');
@@ -40,7 +40,7 @@ export default class LoginService extends HTTP {
       this.axiosGet({
         url: LOGIN.LOGOUT_ACTION,
         success (data) {
-          resolve(data);
+          resolve(data as IResult);
         },
         error (error) {
           alert('网络请求失败');

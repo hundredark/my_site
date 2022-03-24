@@ -33,7 +33,7 @@ const getScrollHeight = () => {
 const getWindowHeight = () => {
   let windowHeight = 0
 
-  if (document.compatMode == "CSS1Compat") {
+  if (document.compatMode === "CSS1Compat") {
     windowHeight = document.documentElement.clientHeight
   } else {
     windowHeight = document.body.clientHeight
@@ -61,12 +61,29 @@ const getViewportSize = () => {
       }
     }
   }
+}
 
+const getElementPosition = (ele: HTMLElement) => {
+  let parent = ele.offsetParent
+  let offsetLeft = ele.offsetLeft
+  let offsetTop = ele.offsetTop
+
+  while (parent) {
+    offsetLeft += (parent as HTMLElement).offsetLeft
+    offsetTop  += (parent as HTMLElement).offsetTop
+    parent = (parent as HTMLElement).offsetParent
+  }
+
+  return {
+    left: offsetLeft,
+    top: offsetTop,
+  }
 }
 
 export {
   getScrollTop,
   getScrollHeight,
   getWindowHeight,
-  getViewportSize
+  getViewportSize,
+  getElementPosition
 }
