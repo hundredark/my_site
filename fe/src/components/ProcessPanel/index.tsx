@@ -27,7 +27,7 @@ export const ProcessPanel = (props: IProp) => {
       <div className={'right'}>
         <span>{ stdTime(current * 1000) }</span>
         /
-        <span>{ stdTime(total) }</span>
+        <span>{ stdTime(total * 1000) }</span>
       </div>
 
     </div>
