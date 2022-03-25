@@ -13,7 +13,7 @@ interface IProp {
 }
 
 export const ProcessBar = (props: IProp) => {
-  const {current, setCurrent, total, type} = props,
+  const {current, setCurrent, total, type, update} = props,
         [moving, setMoving] = useState(false),
         [offset, setOffset] = useState(0),
         [outWidth, setOutWidth] = useState(0),
@@ -55,18 +55,25 @@ export const ProcessBar = (props: IProp) => {
         }
       }
 
-  // 外层尺度
-  useMount(() => {
+  const setOuterLength = () => {
     if (type === 'horizontal') {
       setOutWidth(barRef.current!.offsetWidth)
     } else {
       setOutWidth(barRef.current!.offsetHeight)
     }
-  })
+  }
 
   useEffect(() => {
-    console.log(type, outWidth, current, total)
-  }, [outWidth])
+    setOuterLength()
+  }, [barRef.current!.offsetWidth])
+
+  // resize 时改变外层尺度
+  useEffect(() => {
+    window.addEventListener('resize', setOuterLength)
+    return () => {
+      window.removeEventListener('resize', setOuterLength)
+    }
+  }, [])
 
   // mouseup 事件
   useMount(() => {
@@ -125,14 +132,20 @@ export const ProcessBar = (props: IProp) => {
         x = e.clientY - getElementPosition(barRef.current! as HTMLElement).top
         x = outWidth - x
       }
-      setCurrent(x / outWidth * total)
+
+      let currentPoint = x / outWidth * total
+      setCurrent(currentPoint)
+
+      if (update) {
+        update(currentPoint)
+      }
     }
 
     barRef.current!.addEventListener('click', handleClick)
     return () => {
       barRef.current!.removeEventListener('click', handleClick)
     }
-  }, [outWidth])
+  }, [])
 
   const mouseDownHandler = (e: React.MouseEvent) => {
     e.preventDefault()

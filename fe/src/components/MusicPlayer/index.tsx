@@ -12,8 +12,6 @@ import {PlayerRightPanel} from "../PlayerRightPanel";
 
 const audioService = new AudioService()
 
-
-
 export const MusicPlayer = () => {
 
   const audio = useRef<HTMLAudioElement>(null),
@@ -73,8 +71,6 @@ export const MusicPlayer = () => {
     })
   }, [curSongIdx])
 
-
-
   // 随播放改变 前端进度
   useEffect(() => {
     console.log(playStatus)
@@ -96,11 +92,6 @@ export const MusicPlayer = () => {
   useEffect(() => {
     audio.current!.volume = currentVolume
   }, [currentVolume])
-
-  // 绑定进度
-  useEffect(() => {
-    audio.current!.currentTime = currentTime
-  }, [currentTime])
 
   const play = () => {
     if (audio.current && playStatus === 'canplay') {
