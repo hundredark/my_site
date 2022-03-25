@@ -11,7 +11,8 @@
 }
 
 .volume-container .volume-panel-container {
-    display: none;
+    visibility: hidden;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -26,7 +27,7 @@
 }
 
 .volume-panel-container.active {
-    display: flex;
+    visibility: visible;
 }
 
 .repeat-container {
@@ -69,3 +70,6 @@
     display: block;
 }
 
+.home .invisible {
+    visibility: hidden;
+}

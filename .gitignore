@@ -4,6 +4,8 @@
 /be/node_modules/
 /fe/node_modules/
 
+/fe/build
+
 /be/config/
 /fe/src/config/
 /.pnp

@@ -71,7 +71,7 @@ export const PlayerRightPanel = (props: IProp) => {
           ></i>
         </div>
 
-        <div className={["volume-panel-container", showVolume ? 'active' : ''].join(" ")}>
+        <div className={["volume-panel-container", "invisible",showVolume ? 'active' : ''].join(" ")}>
           <ProcessBar
             type={"vertical"}
             current={volume}
@@ -114,7 +114,7 @@ export const PlayerRightPanel = (props: IProp) => {
           <i className={"fa fa-th-list hover-item"}></i>
         </div>
 
-        <div className={["list-panel", showList ? "active" : ""].join(" ")}>
+        <div className={["list-panel", "invisible", showList ? "active" : ""].join(" ")}>
           <MusicList
             status={status}
             curSongIdx={curSongIdx}

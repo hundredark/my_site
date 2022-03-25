@@ -57,15 +57,17 @@ export const ProcessBar = (props: IProp) => {
 
   const setOuterLength = () => {
     if (type === 'horizontal') {
+      console.log(type, barRef.current!.offsetWidth)
       setOutWidth(barRef.current!.offsetWidth)
     } else {
+      console.log(type, barRef.current!.offsetHeight)
       setOutWidth(barRef.current!.offsetHeight)
     }
   }
 
   useEffect(() => {
     setOuterLength()
-  }, [barRef.current!.offsetWidth])
+  }, [])
 
   // resize 时改变外层尺度
   useEffect(() => {
@@ -145,7 +147,7 @@ export const ProcessBar = (props: IProp) => {
     return () => {
       barRef.current!.removeEventListener('click', handleClick)
     }
-  }, [])
+  }, [outWidth])
 
   const mouseDownHandler = (e: React.MouseEvent) => {
     e.preventDefault()

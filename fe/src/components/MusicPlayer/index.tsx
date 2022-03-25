@@ -73,8 +73,6 @@ export const MusicPlayer = () => {
 
   // 随播放改变 前端进度
   useEffect(() => {
-    console.log(playStatus)
-
     let interval: NodeJS.Timer
     if (playStatus === "playing") {
       interval = setInterval(() => {

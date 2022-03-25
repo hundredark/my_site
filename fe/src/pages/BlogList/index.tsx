@@ -17,7 +17,6 @@ export const BlogList = () => {
         console.log('to blogs')
 
         blogService.getBlogList().then((data) => {
-            console.log(data)
             if (data.error_code === 0) {
                 setList(data.data as IBlogList)
             }
